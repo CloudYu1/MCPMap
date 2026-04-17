@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  weather-mcp:
+    build: .
+    container_name: weather-mcp
+    ports:
+      - "8000:8000"
+    environment:
+      - AMAP_API_KEY=${AMAP_API_KEY}
+      - APP_NAME=${APP_NAME:-Weather MCP Service}
+      - APP_VERSION=${APP_VERSION:-1.0.0}
+      - DEBUG=${DEBUG:-false}
+      - HOST=0.0.0.0
+      - PORT=8000
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-*}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    restart: unless-stopped
+    networks:
+      - mcp-network
+
+networks:
+  mcp-network:
+    driver: bridge
